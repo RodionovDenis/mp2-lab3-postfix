@@ -4,6 +4,7 @@
 using namespace std;
 
 bool IsOperation(char elem);
+bool IsOperationForCorrect(char elem);
 int priority(char elem);
 double result(double op1, double op2, char operat);
 bool IsNumber(char elem);
@@ -31,10 +32,10 @@ bool TPostfix::IsCorrect() //проверка на корректность вы
 {
 	int flag = 0;
 	stack_operation.clear();
-	if ((IsOperation(infix[0]) || IsOperation(infix[infix.size() - 1])) && (infix[0] != '(' || infix[infix.size() - 1] != ')'))//выражение не начинается и не заканчивается операцией
+	if (IsOperationForCorrect(infix[0]) || IsOperationForCorrect(infix[infix.size() - 1]))//выражение не начинается и не заканчивается операцией
 		return false;
 	for (int i = 1; i < infix.size() - 1; i++) // в выражении нет двух операций подряд
-		if (IsOperation(infix[i]) && IsOperation(infix[i + 1]))
+		if (IsOperationForCorrect(infix[i]) && IsOperationForCorrect(infix[i + 1]))
 			return false;
 	for (int i = 0; i < infix.size(); i++)
 	{
@@ -179,6 +180,11 @@ double TPostfix::Calculate() // вычисление
 bool IsOperation(char elem)
 {
 	return (elem == '(' || elem == ')' || elem == '+' || elem == '-' || elem == '*' || elem == '/') ? true : false;
+}
+
+bool IsOperationForCorrect(char elem)
+{
+	return (elem == '+' || elem == '-' || elem == '*' || elem == '/') ? true : false;
 }
 
 int priority(char elem)
