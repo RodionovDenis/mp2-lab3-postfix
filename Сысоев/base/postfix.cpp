@@ -14,7 +14,7 @@ TStack<double> stack_value(MaxStackSize); //для хранения соотве
 TStack<double> stack_value_postfix(MaxStackSize); //для высчитывания результата
 
 TPostfix::TPostfix(string _infix) : infix(_infix), postfix(""), value(nullptr) {}
-string TPostfix:: GetInfix()
+string TPostfix::GetInfix()
 {
 	return infix;
 }
