@@ -5,9 +5,13 @@ TEST(TStack, can_create_stack_with_positive_length)
 {
   ASSERT_NO_THROW(TStack<int> st(5));
 }
-TEST(TStack, stack_size_check)
+TEST(TStack, can_not_create_stack_with_negative_size)
 {
 	ASSERT_ANY_THROW(TStack<int> st(-1));
+}
+
+TEST(TStack, can_not_create_stack_with_large_size)
+{
 	ASSERT_ANY_THROW(TStack<int> st(MaxStackSize + 1));
 }
 TEST(TStack, two_different_stacks_have_different_memories)
@@ -24,51 +28,58 @@ TEST(TStack, check_stack_for_full)
 {
 	TStack<int> s1(5);
 	for (int i = 0; i < 5; i++)
-		s1.push(i);
+		s1.Push(i);
 	EXPECT_EQ(true, s1.IsFull());
 }
 TEST(TStack, can_clear_stack)
 {
 	TStack<int> s1(5);
 	for (int i = 0; i < 5; i++)
-		s1.push(i);
-	s1.clear();
+		s1.Push(i);
+	s1.Clear();
 	EXPECT_EQ(true, s1.IsEmpty());
 }
 TEST(TStack, can_erase_last_element_in_stack)
 {
 	TStack<int> s1(5);
 	for (int i = 0; i < 5; i++)
-		s1.push(i);
-	s1.erase();
+		s1.Push(i);
+	s1.Erase();
 	EXPECT_EQ(false, s1.IsFull());
 }
-TEST(TStack, can_pop_element_in_stack)
+TEST(TStack, can_take_element_in_stack_pop_with_corrected_value)
 {
 	TStack<int> s1(5);
 	for (int i = 0; i < 5; i++)
-		s1.push(i);
-	EXPECT_EQ(4, s1.pop());
-	EXPECT_EQ(false, s1.IsFull());
+		s1.Push(i);
+	EXPECT_EQ(4, s1.Pop());
 }
-TEST(TStack,can_view_last_element_in_stack_without_delete_him)
+TEST(TStack, element_is_delete_on_pop)
 {
 	TStack<int> s1(5);
 	for (int i = 0; i < 5; i++)
-		s1.push(i);
-	EXPECT_EQ(4, s1.pop_nd());
+		s1.Push(i);
+	int a = s1.Pop();
+	EXPECT_EQ(false, s1.IsFull());
+}
+TEST(TStack, can_view_last_element_in_stack_without_delete_him)
+{
+	TStack<int> s1(5);
+	for (int i = 0; i < 5; i++)
+		s1.Push(i);
+	int a = s1.PopWithoutDelete();
 	EXPECT_EQ(true, s1.IsFull());
 }
-TEST(TStack,can_push_element_in_stack)
+TEST(TStack,method_pop_without_delete_return_correct_value)
 {
 	TStack<int> s1(5);
-	s1.push(1);
-	EXPECT_EQ(1, s1.pop_nd());
-	EXPECT_EQ(false, s1.IsEmpty());
+	for (int i = 0; i < 5; i++)
+		s1.Push(i);
+	EXPECT_EQ(4, s1.PopWithoutDelete());
 }
-TEST(TStack,can_know_lenght_now )
+TEST(TStack,can_know_length_now)
 {
 	TStack<int>s1(5);
-	s1.push(1);
-	EXPECT_EQ(1, s1.lenght());
+	s1.Push(1);
+	EXPECT_EQ(1, s1.Length());
 }

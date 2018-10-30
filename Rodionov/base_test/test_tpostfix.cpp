@@ -36,8 +36,19 @@ TEST(TPostfix, parentheses_is_correct)
 {
 	TPostfix p("(a+1)*(b+1)");
 	EXPECT_EQ(true, p.IsCorrect());
+}
+TEST(TPostfix, expression_is_correct_when_change_infix)
+{
+	TPostfix p("(a+1)*(b+1)");
 	p.ChangeInfix("(a+b)/(e-f)");
 	EXPECT_EQ(true, p.IsCorrect());
+}
+TEST(TPostfix, postfix_change_when_change_infix)
+{
+	TPostfix p("(a+1)*(b+1)");
+	p.ChangeInfix("(a+b)/(e-f)");
+	p.ToPostfix();
+	EXPECT_EQ("a b + e f - /", p.GetPostfix());
 }
 TEST(TPostfix, transformation_infix_in_postfix_is_true_only_numbers)
 {

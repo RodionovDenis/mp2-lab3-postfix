@@ -10,7 +10,7 @@ class TStack
 	int size;
 	int top;
 public:
-	TStack(int _size)
+	TStack(int _size = MaxStackSize)
 	{
 		if ((_size < 1) || (_size > MaxStackSize))
 			throw "data is not correct";
@@ -30,28 +30,28 @@ public:
 	{
 		return top == size - 1;
 	}
-	void clear()//очистить
+	void Clear()//очистить
 	{
 		top = -1;
 	}
-	void erase()//удалить последний
+	void Erase()//удалить последний
 	{
 		if (!IsEmpty())
 			top--;
 	}
-	T pop()
+	T Pop()
 	{
 		return pMem[top--];
 	}
-	T pop_nd()//посмотреть без удаления
+	T PopWithoutDelete()//посмотреть без удаления
 	{
 		return pMem[top];
 	}
-	void push(T v)
+	void Push(T v)
 	{
 		pMem[++top] = v;
 	}
-	int lenght() //элементов в стэке в момент времени t.
+	int Length() //элементов в стэке в момент времени t.
 	{
 		return top + 1;
 	}
