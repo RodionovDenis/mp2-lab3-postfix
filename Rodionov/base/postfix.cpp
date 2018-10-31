@@ -26,7 +26,7 @@ void TPostfix::ChangeInfix(string _infix)
 bool TPostfix::IsCorrect() //проверка на корректность выражения
 {
 	int flag = 0;
-	stack_operation.Clear();
+	stackOperation.Clear();
 	if (IsOperationForCorrect(infix[0]) || IsOperationForCorrect(infix[infix.size() - 1]))//выражение не начинается и не заканчивается операцией
 		return false;
 	for (int i = 1; i < infix.size() - 1; i++) // в выражении нет двух операций подряд
@@ -35,21 +35,21 @@ bool TPostfix::IsCorrect() //проверка на корректность вы
 	for (int i = 0; i < infix.size(); i++)
 	{
 		if (infix[i] == '(')
-			stack_operation.Push(1);
+			stackOperation.Push(1);
 		if (infix[i] == ')')
 		{
-			if (stack_operation.IsEmpty())
+			if (stackOperation.IsEmpty())
 				flag = 1;
-			stack_operation.Erase();
+			stackOperation.Erase();
 		}
 	}
 	if (flag)
 		return false;
-	return (stack_operation.IsEmpty()) ? true : false;
+	return (stackOperation.IsEmpty()) ? true : false;
 }
 void TPostfix::ToPostfix() // получение постфикса
 {
-	stack_operation.Clear();
+	stackOperation.Clear();
 	int a = 0;
 	for (int i = 0; i < infix.size(); i++)
 	{
@@ -63,55 +63,55 @@ void TPostfix::ToPostfix() // получение постфикса
 		{
 			if (infix[i] != ')')
 			{
-				if (Priority(infix[i]) == 0 || stack_operation.IsEmpty() || Priority(infix[i]) > Priority(stack_operation.PopWithoutDelete()))
-					stack_operation.Push(infix[i]);
+				if (Priority(infix[i]) == 0 || stackOperation.IsEmpty() || Priority(infix[i]) > Priority(stackOperation.PopWithoutDelete()))
+					stackOperation.Push(infix[i]);
 				else
 				{
-					a = stack_operation.Length();
+					a = stackOperation.Length();
 					for (int j = 0; j < a; j++)
 					{
-						if (Priority(stack_operation.PopWithoutDelete()) >= Priority(infix[i]))
+						if (Priority(stackOperation.PopWithoutDelete()) >= Priority(infix[i]))
 						{
-							postfix += stack_operation.Pop();
+							postfix += stackOperation.Pop();
 							postfix += ' ';
 						}
 						else
 							break;
 					}
-					stack_operation.Push(infix[i]);
+					stackOperation.Push(infix[i]);
 				}
 			}
 			else
 			{
-				a = stack_operation.Length();
+				a = stackOperation.Length();
 				for (int j = 0; j < a; j++)
 				{
-					if (stack_operation.PopWithoutDelete() != '(')
+					if (stackOperation.PopWithoutDelete() != '(')
 					{
-						postfix += stack_operation.Pop();
+						postfix += stackOperation.Pop();
 						postfix += ' ';
 					}
 					else
 					{
-						stack_operation.Erase();
+						stackOperation.Erase();
 						break;
 					}
 				}
 			}
 		}
 	}
-	a = stack_operation.Length();
+	a = stackOperation.Length();
 	for (int j = 0; j < a; j++)
 	{
-		postfix += stack_operation.Pop();
+		postfix += stackOperation.Pop();
 		if (j != a - 1)
 			postfix += ' ';
 	}
 }
 void TPostfix::ReadArguments() //ввод значений переменных
 {
-	stack_arguments.Clear();
-	stack_value.Clear();
+	stackArguments.Clear();
+	stackValue.Clear();
 	string ss;
 	for (int i = infix.size() - 1; i >= 0; i--)
 		if (!IsOperation(infix[i]) && !IsNumber(infix[i]) && infix[i] != '.')
@@ -120,24 +120,24 @@ void TPostfix::ReadArguments() //ввод значений переменных
 			if (i != 0 && !IsOperation(infix[i - 1]) && !IsNumber(infix[i - 1]))
 				continue;
 			reverse(ss.begin(), ss.end());
-			stack_arguments.Push(ss);
+			stackArguments.Push(ss);
 			ss.clear();
 		}
-	int res = stack_arguments.Length();
+	int res = stackArguments.Length();
 	value = new double[res];
 	if (res)
 		cout << "Введите значения переменных." << endl;
 	for (int i = 0; i < res; i++)
 	{
-		cout << stack_arguments.Pop() << "=";
+		cout << stackArguments.Pop() << "=";
 		cin >> value[i];
 	}
 	for (int i = res - 1; i >= 0; i--)
-		stack_value.Push(value[i]);
+		stackValue.Push(value[i]);
 }
 double TPostfix::Calculate() // вычисление
 {
-	stack_value_postfix.Clear();
+	stackValuePostfix.Clear();
 	double tmp = 0;
 	string ss;
 	for (int i = 0; i < postfix.size(); i++)
@@ -148,7 +148,7 @@ double TPostfix::Calculate() // вычисление
 			{
 				if (i != postfix.size() - 1 && postfix[i + 1] != ' ')
 					continue;
-				stack_value_postfix.Push(stack_value.Pop());
+				stackValuePostfix.Push(stackValue.Pop());
 			}
 			else if (IsNumber(postfix[i]) || postfix[i] == '.')
 			{
@@ -158,18 +158,18 @@ double TPostfix::Calculate() // вычисление
 				if (postfix[i + 1] == '.')
 					continue;
 				tmp = stod(ss);
-				stack_value_postfix.Push(tmp);
+				stackValuePostfix.Push(tmp);
 				ss.clear();
 			}
 			else
 			{
-				tmp = Result(stack_value_postfix.Pop(), stack_value_postfix.Pop(), postfix[i]);
-				stack_value_postfix.Push(tmp);
+				tmp = Result(stackValuePostfix.Pop(), stackValuePostfix.Pop(), postfix[i]);
+				stackValuePostfix.Push(tmp);
 			}
 		}
 		else continue;
 	}
-	return stack_value_postfix.Pop();
+	return stackValuePostfix.Pop();
 }
 
 bool IsOperation(char elem)
