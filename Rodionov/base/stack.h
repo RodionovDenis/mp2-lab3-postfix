@@ -30,11 +30,11 @@ public:
 	{
 		return top == size - 1;
 	}
-	void Clear()//РѕС‡РёСЃС‚РёС‚СЊ
+	void Clear()//очистить
 	{
 		top = -1;
 	}
-	void Erase()//СѓРґР°Р»РёС‚СЊ РїРѕСЃР»РµРґРЅРёР№
+	void Erase()//удалить последний
 	{
 		if (!IsEmpty())
 			top--;
@@ -43,7 +43,7 @@ public:
 	{
 		return pMem[top--];
 	}
-	T PopWithoutDelete()//РїРѕСЃРјРѕС‚СЂРµС‚СЊ Р±РµР· СѓРґР°Р»РµРЅРёСЏ
+	T PopWithoutDelete()//посмотреть без удаления
 	{
 		return pMem[top];
 	}
@@ -51,7 +51,7 @@ public:
 	{
 		pMem[++top] = v;
 	}
-	int Length() //СЌР»РµРјРµРЅС‚РѕРІ РІ СЃС‚СЌРєРµ РІ РјРѕРјРµРЅС‚ РІСЂРµРјРµРЅРё t.
+	int Length() //элементов в стэке в момент времени t.
 	{
 		return top + 1;
 	}
