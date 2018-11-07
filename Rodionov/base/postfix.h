@@ -13,21 +13,21 @@ class TPostfix
 private:
 	string infix;
 	string postfix;
-	double *value; //для хранения значений переменных выражения
-	TStack<char> stackOperation; // для преобразования в постфикс и проверки на корректность
-	TStack<string> stackArguments; // для хранение аргументов
-	TStack<double> stackValue; //для хранения соответствующих значений
-	TStack<double> stackValuePostfix; //для высчитывания результата
+	double *value; //РґР»СЏ С…СЂР°РЅРµРЅРёСЏ Р·РЅР°С‡РµРЅРёР№ РїРµСЂРµРјРµРЅРЅС‹С… РІС‹СЂР°Р¶РµРЅРёСЏ
+	TStack<char> stackOperation; // РґР»СЏ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ РІ РїРѕСЃС‚С„РёРєСЃ Рё РїСЂРѕРІРµСЂРєРё РЅР° РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ
+	TStack<string> stackArguments; // РґР»СЏ С…СЂР°РЅРµРЅРёРµ Р°СЂРіСѓРјРµРЅС‚РѕРІ
+	TStack<double> stackValue; //РґР»СЏ С…СЂР°РЅРµРЅРёСЏ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёС… Р·РЅР°С‡РµРЅРёР№
+	TStack<double> stackValuePostfix; //РґР»СЏ РІС‹СЃС‡РёС‚С‹РІР°РЅРёСЏ СЂРµР·СѓР»СЊС‚Р°С‚Р°
 
 public:
 	TPostfix(string _infix);
 	string GetInfix();
 	string GetPostfix();
 	void ChangeInfix(string _infix);
-	bool IsCorrect(); //проверка на корректность выражения
-	void ToPostfix(); // получение постфикса
-	void ReadArguments(); //ввод значений переменных
-	double Calculate(); // вычисление
+	bool IsCorrect(); //РїСЂРѕРІРµСЂРєР° РЅР° РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ РІС‹СЂР°Р¶РµРЅРёСЏ
+	void ToPostfix(); // РїРѕР»СѓС‡РµРЅРёРµ РїРѕСЃС‚С„РёРєСЃР°
+	void ReadArguments(); //РІРІРѕРґ Р·РЅР°С‡РµРЅРёР№ РїРµСЂРµРјРµРЅРЅС‹С…
+	double Calculate(); // РІС‹С‡РёСЃР»РµРЅРёРµ
 };
 
 

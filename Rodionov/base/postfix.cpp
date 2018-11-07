@@ -23,13 +23,13 @@ void TPostfix::ChangeInfix(string _infix)
 	infix = _infix;
 	postfix.clear();
 }
-bool TPostfix::IsCorrect() //проверка на корректность выражения
+bool TPostfix::IsCorrect() //РїСЂРѕРІРµСЂРєР° РЅР° РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ РІС‹СЂР°Р¶РµРЅРёСЏ
 {
 	int flag = 0;
 	stackOperation.Clear();
-	if (IsOperationForCorrect(infix[0]) || IsOperationForCorrect(infix[infix.size() - 1]))//выражение не начинается и не заканчивается операцией
+	if (IsOperationForCorrect(infix[0]) || IsOperationForCorrect(infix[infix.size() - 1]))//РІС‹СЂР°Р¶РµРЅРёРµ РЅРµ РЅР°С‡РёРЅР°РµС‚СЃСЏ Рё РЅРµ Р·Р°РєР°РЅС‡РёРІР°РµС‚СЃСЏ РѕРїРµСЂР°С†РёРµР№
 		return false;
-	for (int i = 1; i < infix.size() - 1; i++) // в выражении нет двух операций подряд
+	for (int i = 1; i < infix.size() - 1; i++) // РІ РІС‹СЂР°Р¶РµРЅРёРё РЅРµС‚ РґРІСѓС… РѕРїРµСЂР°С†РёР№ РїРѕРґСЂСЏРґ
 		if (IsOperationForCorrect(infix[i]) && IsOperationForCorrect(infix[i + 1]))
 			return false;
 	for (int i = 0; i < infix.size(); i++)
@@ -47,7 +47,7 @@ bool TPostfix::IsCorrect() //проверка на корректность выражения
 		return false;
 	return (stackOperation.IsEmpty()) ? true : false;
 }
-void TPostfix::ToPostfix() // получение постфикса
+void TPostfix::ToPostfix() // РїРѕР»СѓС‡РµРЅРёРµ РїРѕСЃС‚С„РёРєСЃР°
 {
 	stackOperation.Clear();
 	int a = 0;
@@ -108,7 +108,7 @@ void TPostfix::ToPostfix() // получение постфикса
 			postfix += ' ';
 	}
 }
-void TPostfix::ReadArguments() //ввод значений переменных
+void TPostfix::ReadArguments() //РІРІРѕРґ Р·РЅР°С‡РµРЅРёР№ РїРµСЂРµРјРµРЅРЅС‹С…
 {
 	stackArguments.Clear();
 	stackValue.Clear();
@@ -126,7 +126,7 @@ void TPostfix::ReadArguments() //ввод значений переменных
 	int res = stackArguments.Length();
 	value = new double[res];
 	if (res)
-		cout << "Введите значения переменных." << endl;
+		cout << "Р’РІРµРґРёС‚Рµ Р·РЅР°С‡РµРЅРёСЏ РїРµСЂРµРјРµРЅРЅС‹С…." << endl;
 	for (int i = 0; i < res; i++)
 	{
 		cout << stackArguments.Pop() << "=";
@@ -135,7 +135,7 @@ void TPostfix::ReadArguments() //ввод значений переменных
 	for (int i = res - 1; i >= 0; i--)
 		stackValue.Push(value[i]);
 }
-double TPostfix::Calculate() // вычисление
+double TPostfix::Calculate() // РІС‹С‡РёСЃР»РµРЅРёРµ
 {
 	stackValuePostfix.Clear();
 	double tmp = 0;
